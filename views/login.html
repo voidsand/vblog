@@ -1,0 +1,37 @@
+{{template "header" .}}
+<div class="container">
+    <form class="form-signin" role="form" method="POST" action="/login">
+        <h2 class="form-signin-heading">管理员登录</h2>
+        <input id="uname" name="uname" class="form-control" placeholder="Username" required autofocus>
+        <input id="pwd" name="pwd" class="form-control" type="password" placeholder="Password" required>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" name="autologin">自动登录
+            </label>
+        </div>
+        <button class="btn btn-default btn-primary btn-block" type="submit" onclick="return checkInput();">登 录</button>
+        <button class="btn btn-default btn-primary btn-block" onclick="return backToHome();">返 回</button>
+    </form>
+    <script type="text/javascript">
+        function checkInput() {
+            var uname = document.getElementById("uname");
+            if (uname.value.length == 0) {
+                alert("请输入用户名");
+                return false;
+            }
+            var pwd = document.getElementById("pwd");
+            if (pwd.value.length == 0) {
+                alert("请输入密码");
+                return false;
+            }
+            return true;
+        }
+        function backToHome() {
+            window.location.href = "/";
+            return false;
+        }
+
+
+    </script>
+</div>
+{{template "footer" .}}
