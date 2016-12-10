@@ -1,12 +1,14 @@
 {{template "header" .}}
 {{template "navbar" .}}
 <div class="container">
+    {{range .Topics}}
     <div class="page-header">
-        <h1>我的第一篇博客</h1>
-        <h6 class="text-muted">文章发表与 2016 年 12 月 7 日 19：25，共有 100 次浏览，200 个评论</h6>
+        <h1><a href="/topic/view/{{.Id}}">{{.Title}}</a></h1>
+        <h6 class="text-muted">文章发表与 {{dateformat .Created "2006-01-02 15:04:05"}}，共有 {{.Views}} 次浏览，{{.ReplyCount}} 个评论</h6>
         <p>
-            大家好，这是我的第一篇博客，多谢观看！
+            {{.Content}}
         </p>
     </div>
+    {{end}}
 </div>
 {{template "footer" .}}

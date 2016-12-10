@@ -2,24 +2,32 @@
 {{template "navbar" .}}
 <div class="container">
     <h1>文章列表</h1>
+    {{if .LoginReady}}
     <a href="/topic/add" class="btn btn-default">添加文章</a>
+    {{end}}
     <table class="table table-striped">
         <thead>
         <tr>
             <th>#</th>
             <th>文章名称</th>
             <th>最后更新</th>
-            <th>浏览</th>
+            <th>浏览数</th>
             <th>回复数</th>
+            {{if .LoginReady}}
+            <th>操作</th>
+            {{end}}
         </tr>
         </thead>
         {{range .Topics}}
         <tbody>
         <th>{{.Id}}</th>
-        <th>{{.Title}}</th>
-        <th>{{.Updated}}</th>
+        <th><a href="/topic/view/{{.Id}}">{{.Title}}</a></th>
+        <th>{{dateformat .Updated "2006-01-02 15:04:05"}}</th>
         <th>{{.Views}}</th>
         <th>{{.ReplyCount}}</th>
+        {{if $.LoginReady}}
+        <th><a href="/topic/delete/{{.Id}}">删除</a></th>
+        {{end}}
         </tbody>
         {{end}}
     </table>

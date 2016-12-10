@@ -1,0 +1,14 @@
+{{template "header" .}}
+{{template "navbar" .}}
+<div class="container">
+    <h1>{{.Topic.Title}}
+        {{if .LoginReady}}
+        <a href="/topic/modify/{{.Tid}}" class="btn btn-default">修改文章</a>
+        {{end}}
+    </h1>
+    <div>
+    {{.Topic.Content}}
+    </div>
+    <a href="/topic"><- 返回</a>
+</div>
+{{template "footer" .}}

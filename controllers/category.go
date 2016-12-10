@@ -14,33 +14,33 @@ func (c *CategoryController) Get() {
 	c.TplName = "category.html"
 	c.Data["Title"] = "分类 - 我的博客"
 	c.Data["IsCategory"] = true
+	c.Data["LoginReady"] = checkLogin(c.Ctx)
 	c.Data["Categories"], err = models.GetAllCategories()
 	if err != nil {
 		beego.Error(err)
 	}
-	op := c.Input().Get("op")
-	switch op {
-	case "add":
-		name := c.Input().Get("name")
-		if len(name) == 0 {
-			break
-		}
-		err := models.AddCategory(name)
-		if err != nil {
-			beego.Error(err)
-		}
-		c.Redirect("/category", 301)
-		return
-	case "del":
-		id := c.Input().Get("id")
-		if len(id) == 0 {
-			break
-		}
-		err := models.DelCategory(id)
+
+	cname := c.Input().Get("cname")
+	if len(cname) != 0 && checkLogin(c.Ctx) {
+		err := models.AddCategory(cname)
 		if err != nil {
 			beego.Error(err)
 		}
 		c.Redirect("/category", 301)
 		return
 	}
+}
+
+func (c *CategoryController) Delete() {
+	if !checkLogin(c.Ctx) {
+		c.Redirect("/category", 301)
+		return
+	}
+	cid := c.Ctx.Input.Param("0")
+	err := models.DeleteCategory(cid)
+	if err != nil {
+		beego.Error(err)
+	}
+	c.Redirect("/category", 301)
+	return
 }

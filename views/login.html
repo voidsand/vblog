@@ -6,7 +6,7 @@
         <input id="pwd" name="pwd" class="form-control" type="password" placeholder="Password" required>
         <div class="checkbox">
             <label>
-                <input type="checkbox" name="autologin">自动登录
+                <input name="autologin" type="checkbox">自动登录
             </label>
         </div>
         <button class="btn btn-default btn-primary btn-block" type="submit" onclick="return checkInput();">登 录</button>
@@ -30,8 +30,6 @@
             window.location.href = "/";
             return false;
         }
-
-
     </script>
 </div>
 {{template "footer" .}}
