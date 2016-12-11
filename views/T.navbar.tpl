@@ -20,9 +20,9 @@
 	        <div class="pull-right">
                 <ul class="nav navbar-nav">
                     {{if .LoginReady}}
-                    <li><a href="/login?exit=true">退出</a></li>
+                    <li><a href="/sign/out">退出</a></li>
                     {{else}}
-                    <li><a href="/login">登录</a></li>
+                    <li><a href="/sign">登录</a></li>
                     {{end}}
                 </ul>
             </div>

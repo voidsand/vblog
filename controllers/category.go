@@ -14,33 +14,42 @@ func (c *CategoryController) Get() {
 	c.TplName = "category.html"
 	c.Data["Title"] = "分类 - 我的博客"
 	c.Data["IsCategory"] = true
-	c.Data["LoginReady"] = checkLogin(c.Ctx)
+	c.Data["LoginReady"] = checkSignin(c)
 	c.Data["Categories"], err = models.GetAllCategories()
 	if err != nil {
 		beego.Error(err)
 	}
+}
 
-	cname := c.Input().Get("cname")
-	if len(cname) != 0 && checkLogin(c.Ctx) {
-		err := models.AddCategory(cname)
-		if err != nil {
-			beego.Error(err)
-		}
+func (c *CategoryController) Add() {
+	if !checkSignin(c) {
 		c.Redirect("/category", 301)
 		return
 	}
+	if c.Ctx.Request.Method == "POST" {
+		cname := c.Input().Get("cname")
+		if len(cname) != 0 && checkSignin(c) {
+			err := models.AddCategory(cname)
+			if err != nil {
+				beego.Error(err)
+			}
+		}
+	}
+	c.Redirect("/category", 301)
 }
 
 func (c *CategoryController) Delete() {
-	if !checkLogin(c.Ctx) {
+	if !checkSignin(c) {
 		c.Redirect("/category", 301)
 		return
 	}
 	cid := c.Ctx.Input.Param("0")
-	err := models.DeleteCategory(cid)
-	if err != nil {
-		beego.Error(err)
+	category, err := models.GetCategory(cid)
+	if category.TopicCount == 0 {
+		err = models.DeleteCategory(cid)
+		if err != nil {
+			beego.Error(err)
+		}
 	}
 	c.Redirect("/category", 301)
-	return
 }

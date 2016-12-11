@@ -8,7 +8,7 @@
         <link rel="shortcut icon" href="/static/img/favicon.png">
         <title>{{.Title}}</title>
         <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-        {{if .IsLogin}}
+        {{if .IsSignin}}
         <link href="/static/css/login.css" rel="stylesheet">
         {{else}}
         <link href="/static/css/jumbotron.css" rel="stylesheet">

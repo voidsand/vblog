@@ -4,7 +4,7 @@
     {{range .Topics}}
     <div class="page-header">
         <h1><a href="/topic/view/{{.Id}}">{{.Title}}</a></h1>
-        <h6 class="text-muted">文章发表与 {{dateformat .Created "2006-01-02 15:04:05"}}，共有 {{.Views}} 次浏览，{{.ReplyCount}} 个评论</h6>
+        <h6 class="text-muted">文章发表与 {{dateformat .Created "2006-01-02 15:04:05"}}，共有 {{.Views}} 次浏览，{{.ReplyCount}} 个回复</h6>
         <p>
             {{.Content}}
         </p>

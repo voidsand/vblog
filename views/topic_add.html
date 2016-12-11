@@ -1,28 +1,44 @@
 {{template "header" .}}
 <div class="container">
     <h1>添加文章</h1>
-    <form role="form" method="POST" action="/topic">
-        <div class="form-group">
-            <label>文章标题:</label>
+    <form role="form" method="POST" action="/topic/add">
+        <label>文章标题:</label>
+        <div class="form-inline">
             <input id="title" name="title" class="form-control" type="text">
+            <select id="category" name="category" class="form-control">
+                <option value="-1">文章分类</option>
+                {{range .Categories}}
+                <option value="{{.Id}}">{{.Title}}</option>
+                {{end}}
+            </select>
         </div>
         <div class="form-group">
             <label>文章内容:</label>
             <textarea id="content" name="content" cols="30" rows="10" class="form-control"></textarea>
         </div>
-        <button type="submit" class="btn btn-default">添加文章</button>
+        <button type="submit" class="btn btn-default" onclick="return checkInput();">添加文章</button>
         <button class="btn btn-default" onclick="return backToTopic();">返 回</button>
     </form>
     <script type="text/javascript">
         function checkInput() {
-            var uname = document.getElementById("title");
-            if (uname.value.length == 0) {
+            var title = document.getElementById("title");
+            if (title.value.length == 0) {
                 alert("请输入文章标题");
                 return false;
             }
-            var pwd = document.getElementById("content");
-            if (pwd.value.length == 0) {
+            var category = document.getElementById("category");
+            if (category.value.length == 0) {
+                alert("请输入文章分类");
+                return false;
+            }
+            var content = document.getElementById("content");
+            if (content.value.length == 0) {
                 alert("请输入文章内容");
+                return false;
+            }
+            if ('-1' == $('#category').val()) {
+                alert("请选择文章分类");
+                $('#category').focus();
                 return false;
             }
             return true;

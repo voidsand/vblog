@@ -3,7 +3,7 @@
 <div class="container">
     <h1>分类列表</h1>
     {{if .LoginReady}}
-    <form class="form-inline" role="form" method="GET" action="/category">
+    <form class="form-inline" role="form" method="POST" action="/category/add">
         <div class="form-group">
             <input id="cname" name="cname" class="form-control" placeholder="Enter category name">
         </div>
@@ -11,8 +11,8 @@
     </form>
     <script type="text/javascript">
         function checkInput() {
-            var name = document.getElementById("name");
-            if (name.value.length == 0) {
+            var cname = document.getElementById("cname");
+            if (cname.value.length == 0) {
                 alert("请输入分类名称");
                 return false;
             }

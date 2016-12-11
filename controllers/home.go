@@ -14,7 +14,7 @@ func (c *HomeController) Get() {
 	c.TplName = "home.html"
 	c.Data["Title"] = "首页 - 我的博客"
 	c.Data["IsHome"] = true
-	c.Data["LoginReady"] = checkLogin(c.Ctx)
+	c.Data["LoginReady"] = checkSignin(c)
 	c.Data["Topics"], err = models.GetAllTopics(true)
 	if err != nil {
 		beego.Error(err)

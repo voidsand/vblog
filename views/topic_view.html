@@ -9,6 +9,46 @@
     <div>
     {{.Topic.Content}}
     </div>
-    <a href="/topic"><- 返回</a>
 </div>
+<div class="container">
+    {{$tid := .Topic.Id}}
+    {{range .Replies}}
+    <h3>{{.Name}} <small>{{dateformat .Created "2006-01-02 15:04:05"}} {{if $.LoginReady}}<a href="/reply/delete/{{$tid}}/{{.Id}}">删除</a>{{end}}</small></h3>
+    {{.Content}}
+    {{end}}
+</div>
+<div class="container">
+    <h3>本文回复</h3>
+    <form role="form" method="POST" action="/reply/add">
+        <input type="hidden" name="tid" value="{{.Topic.Id}}">
+        <div class="form-group">
+            <label>显示昵称</label>
+            <input id="nickname" name="nickname" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>内容:</label>
+            <textarea  id="content" name="content" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-default" onclick="return checkInput();">提交回复</button>
+        <button class="btn btn-default" onclick="return backToTopic();">返 回</button>
+    </form>
+</div>
+<script type="text/javascript">
+        function checkInput() {
+            var nickname = document.getElementById("nickname");
+            if (nickname.value.length == 0) {
+                alert("请输入昵称");
+                return false;
+            }
+            var content = document.getElementById("content");
+            if (content.value.length == 0) {
+                alert("请输入评论内容");
+                return false;
+            }
+        }
+        function backToTopic() {
+            window.location.href = "/topic";
+            return false;
+        }
+    </script>
 {{template "footer" .}}

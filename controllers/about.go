@@ -12,5 +12,5 @@ func (c *AboutController) Get() {
 	c.TplName = "about.html"
 	c.Data["Title"] = "关于 - 我的博客"
 	c.Data["IsAbout"] = true
-	c.Data["LoginReady"] = checkLogin(c.Ctx)
+	c.Data["LoginReady"] = checkSignin(c)
 }
