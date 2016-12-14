@@ -2,6 +2,7 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
+	"os"
 	"vblog/controllers"
 )
 
@@ -16,4 +17,7 @@ func init() {
 	beego.Router("/reply", &controllers.ReplyController{})
 	beego.AutoRouter(&controllers.ReplyController{})
 	beego.Router("/about", &controllers.AboutController{})
+
+	os.Mkdir("attachment", os.ModePerm)
+	beego.SetStaticPath("/attachment", "attachment")
 }

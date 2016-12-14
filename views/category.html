@@ -26,16 +26,18 @@
             <th>#</th>
             <th>分类名称</th>
             <th>文章数</th>
+            <th>关注度</th>
             {{if .LoginReady}}
             <th>操作</th>
             {{end}}
         </tr>
         </thead>
-        {{range .Categories}}
+        {{range $i, $v := .Categories}}
         <tbody>
-        <th>{{.Id}}</th>
-        <th>{{.Title}}</th>
+        <th>{{$i | plus1}}</th>
+        <th><a href="/?cid={{.Id}}">{{.Title}}</a></th>
         <th>{{.TopicCount}}</th>
+        <th>{{.Views}}</th>
         {{if $.LoginReady}}
         <th><a href="/category/delete/{{.Id}}">删除</a></th>
         {{end}}

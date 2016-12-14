@@ -1,7 +1,7 @@
 {{template "header" .}}
 <div class="container">
     <h1>添加文章</h1>
-    <form role="form" method="POST" action="/topic/add">
+    <form role="form" enctype="multipart/form-data" method="POST" action="/topic/add">
         <label>文章标题:</label>
         <div class="form-inline">
             <input id="title" name="title" class="form-control" type="text">
@@ -15,6 +15,10 @@
         <div class="form-group">
             <label>文章内容:</label>
             <textarea id="content" name="content" cols="30" rows="10" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <label>文章附件:</label>
+            <input name="attachment" class="form-control" type="file">
         </div>
         <button type="submit" class="btn btn-default" onclick="return checkInput();">添加文章</button>
         <button class="btn btn-default" onclick="return backToTopic();">返 回</button>

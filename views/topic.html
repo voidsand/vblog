@@ -19,9 +19,9 @@
             {{end}}
         </tr>
         </thead>
-        {{range .Topics}}
+        {{range $i, $v := .Topics}}
         <tbody>
-        <th>{{.Id}}</th>
+        <th>{{$i | plus1}}</th>
         <th><a href="/topic/view/{{.Id}}">{{.Title}}</a></th>
         <th>{{.Category}}</th>
         <th>{{dateformat .Updated "2006-01-02 15:04:05"}}</th>

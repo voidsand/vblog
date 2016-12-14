@@ -9,6 +9,7 @@
     <div>
     {{.Topic.Content}}
     </div>
+    <label>文章附件: [ <a href="/attachment/{{.Topic.Id}}/{{.Topic.Attachment}}">{{.Topic.Attachment}}</a> ]</label>
 </div>
 <div class="container">
     {{$tid := .Topic.Id}}
@@ -30,10 +31,8 @@
             <textarea  id="content" name="content" cols="30" rows="10" class="form-control"></textarea>
         </div>
         <button type="submit" class="btn btn-default" onclick="return checkInput();">提交回复</button>
-        <button class="btn btn-default" onclick="return backToTopic();">返 回</button>
     </form>
-</div>
-<script type="text/javascript">
+    <script type="text/javascript">
         function checkInput() {
             var nickname = document.getElementById("nickname");
             if (nickname.value.length == 0) {
@@ -46,9 +45,6 @@
                 return false;
             }
         }
-        function backToTopic() {
-            window.location.href = "/topic";
-            return false;
-        }
     </script>
+</div>
 {{template "footer" .}}

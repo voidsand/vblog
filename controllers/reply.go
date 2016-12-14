@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"strconv"
 	"vblog/models"
 )
 
@@ -10,17 +11,18 @@ type ReplyController struct {
 }
 
 func (c *ReplyController) Add() {
-	var tid string
+	var tId string
 	if c.Ctx.Request.Method == "POST" {
-		tid = c.Input().Get("tid")
+		tId = c.Input().Get("tid")
 		nickname := c.Input().Get("nickname")
 		content := c.Input().Get("content")
-		err := models.AddReply(tid, nickname, content)
+		err := models.AddReply(tId, nickname, content)
 		if err != nil {
 			beego.Error(err)
 		}
+		models.TopicViewsChange(tId, false)
 	}
-	c.Redirect("/topic/view/"+tid, 301)
+	c.Redirect("/topic/view/"+tId, 301)
 }
 
 func (c *ReplyController) Delete() {
@@ -28,11 +30,14 @@ func (c *ReplyController) Delete() {
 		c.Redirect("/topic", 301)
 		return
 	}
-	tid := c.Ctx.Input.Param("0")
-	rid := c.Ctx.Input.Param("1")
-	err := models.DeleteReply(tid, rid)
+	rId := c.Ctx.Input.Param("0")
+	topic, err := models.GetTopicByReply(rId)
 	if err != nil {
 		beego.Error(err)
 	}
-	c.Redirect("/topic/view/"+tid, 301)
+	err = models.DeleteReply(rId)
+	if err != nil {
+		beego.Error(err)
+	}
+	c.Redirect("/topic/view/"+strconv.FormatInt(topic.Id, 10), 301)
 }

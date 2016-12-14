@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"strconv"
 	"vblog/models"
 )
 
@@ -10,15 +11,18 @@ type CategoryController struct {
 }
 
 func (c *CategoryController) Get() {
-	var err error
 	c.TplName = "category.html"
 	c.Data["Title"] = "分类 - 我的博客"
 	c.Data["IsCategory"] = true
 	c.Data["LoginReady"] = checkSignin(c)
-	c.Data["Categories"], err = models.GetAllCategories()
+	cates, err := models.GetAllCategories()
 	if err != nil {
 		beego.Error(err)
 	}
+	for i := range cates {
+		models.TotalViewsChange(strconv.FormatInt(cates[i].Id, 10))
+	}
+	c.Data["Categories"] = cates
 }
 
 func (c *CategoryController) Add() {

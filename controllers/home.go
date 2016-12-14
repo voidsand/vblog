@@ -15,8 +15,13 @@ func (c *HomeController) Get() {
 	c.Data["Title"] = "首页 - 我的博客"
 	c.Data["IsHome"] = true
 	c.Data["LoginReady"] = checkSignin(c)
-	c.Data["Topics"], err = models.GetAllTopics(true)
+	c.Data["Topics"], err = models.GetAllTopics(c.Input().Get("cid"), true)
 	if err != nil {
 		beego.Error(err)
 	}
+	categories, err := models.GetAllCategories()
+	if err != nil {
+		beego.Error(err)
+	}
+	c.Data["Categories"] = categories
 }
