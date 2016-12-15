@@ -2,7 +2,7 @@ package models
 
 import (
 	"github.com/astaxie/beego/orm"
-	_ "github.com/mattn/go-sqlite3"
+	_ "github.com/go-sql-driver/mysql"
 	"os"
 	"path"
 	"strconv"
@@ -10,8 +10,7 @@ import (
 )
 
 const (
-	_DB_NAME        = "/home/yu/workspace/db/vblog.db"
-	_SQLITE3_DRIVER = "sqlite3"
+	_DB_NAME = "root:1919@/vblog?charset=utf8"
 )
 
 // 分类结构映射
@@ -53,25 +52,10 @@ type Reply struct {
 
 // 注册数据库
 func RegisterDB() {
-	// 判断数据库是否存在，不存在则创建
-	if !IsExist(_DB_NAME) {
-		os.MkdirAll(path.Dir(_DB_NAME), os.ModePerm)
-		os.Create(_DB_NAME)
-	}
 	// 注册orm的Model，Driver和DataBase
 	orm.RegisterModel(new(Category), new(Topic), new(Reply))
-	orm.RegisterDriver(_SQLITE3_DRIVER, orm.DRSqlite)
-	orm.RegisterDataBase("default", _SQLITE3_DRIVER, _DB_NAME, 10)
-}
-
-// 判断数据库是否存在
-func IsExist(fName string) bool {
-	f, err := os.Open(fName)
-	defer f.Close()
-	if err != nil && os.IsNotExist(err) {
-		return false
-	}
-	return true
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+	orm.RegisterDataBase("default", "mysql", _DB_NAME, 10, 10)
 }
 
 // 添加文章分类
@@ -161,7 +145,7 @@ func AddTopic(tTitle, cId, tContent, tAttachment string) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return tId, err
+	return tId, nil
 }
 
 // 修改指定文章
