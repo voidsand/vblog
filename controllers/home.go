@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"vblog/models"
+	"github.com/voidsand/vblog/models"
 )
 
 type HomeController struct {
@@ -14,7 +14,7 @@ func (c *HomeController) Get() {
 	c.TplName = "home.html"
 	c.Data["Title"] = "首页 - 我的博客"
 	c.Data["IsHome"] = true
-	c.Data["LoginReady"] = checkSignin(c)
+	c.Data["SigninReady"] = checkSignin(c)
 	c.Data["Topics"], err = models.GetAllTopics(c.Input().Get("cid"), true)
 	if err != nil {
 		beego.Error(err)

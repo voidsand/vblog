@@ -3,7 +3,7 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"os"
-	"vblog/controllers"
+	"github.com/voidsand/vblog/controllers"
 )
 
 func init() {

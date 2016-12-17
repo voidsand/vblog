@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/voidsand/vblog/models"
 	"strconv"
-	"vblog/models"
 )
 
 type ReplyController struct {

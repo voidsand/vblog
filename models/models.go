@@ -216,6 +216,7 @@ func DeleteTopic(tId string) error {
 	if err != nil {
 		return err
 	}
+	os.RemoveAll(path.Join("attachment", tId))
 	cate.TopicCount, err = GetTopicCountByCategory(strconv.FormatInt(cate.Id, 10))
 	if err != nil {
 		return err

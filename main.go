@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-	"vblog/models"
-	_ "vblog/routers"
+	"github.com/voidsand/vblog/models"
+	_ "github.com/voidsand/vblog/routers"
 )
 
 func init() {

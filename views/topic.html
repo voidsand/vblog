@@ -2,7 +2,7 @@
 {{template "navbar" .}}
 <div class="container">
     <h1>文章列表</h1>
-    {{if .LoginReady}}
+    {{if .SigninReady}}
     <a href="/topic/add" class="btn btn-default">添加文章</a>
     {{end}}
     <table class="table table-striped">
@@ -14,7 +14,7 @@
             <th>最后更新</th>
             <th>浏览数</th>
             <th>回复数</th>
-            {{if .LoginReady}}
+            {{if .SigninReady}}
             <th>操作</th>
             {{end}}
         </tr>
@@ -27,7 +27,7 @@
         <th>{{dateformat .Updated "2006-01-02 15:04:05"}}</th>
         <th>{{.Views}}</th>
         <th>{{.ReplyCount}}</th>
-        {{if $.LoginReady}}
+        {{if $.SigninReady}}
         <th><a href="/topic/modify/{{.Id}}">修改</a></th>
         <th><a href="/topic/delete/{{.Id}}">删除</a></th>
         {{end}}

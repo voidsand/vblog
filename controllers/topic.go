@@ -3,9 +3,9 @@ package controllers
 import (
 	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/voidsand/vblog/models"
 	"os"
 	"path"
-	"vblog/models"
 )
 
 type TopicController struct {
@@ -17,7 +17,7 @@ func (c *TopicController) Get() {
 	c.TplName = "topic.html"
 	c.Data["Title"] = "文章 - 我的博客"
 	c.Data["IsTopic"] = true
-	c.Data["LoginReady"] = checkSignin(c)
+	c.Data["SigninReady"] = checkSignin(c)
 	c.Data["Topics"], err = models.GetAllTopics("", false)
 	if err != nil {
 		beego.Error(err)
@@ -148,7 +148,7 @@ func (c *TopicController) Delete() {
 func (c *TopicController) View() {
 	c.TplName = "topic_view.html"
 	c.Data["Title"] = "文章浏览 - 我的博客"
-	c.Data["LoginReady"] = checkSignin(c)
+	c.Data["SigninReady"] = checkSignin(c)
 
 	tId := c.Ctx.Input.Param("0")
 	topic, err := models.GetTopic(tId)

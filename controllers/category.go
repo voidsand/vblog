@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/voidsand/vblog/models"
 	"strconv"
-	"vblog/models"
 )
 
 type CategoryController struct {
@@ -14,7 +14,7 @@ func (c *CategoryController) Get() {
 	c.TplName = "category.html"
 	c.Data["Title"] = "分类 - 我的博客"
 	c.Data["IsCategory"] = true
-	c.Data["LoginReady"] = checkSignin(c)
+	c.Data["SigninReady"] = checkSignin(c)
 	cates, err := models.GetAllCategories()
 	if err != nil {
 		beego.Error(err)
